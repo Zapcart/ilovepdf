@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Tool } from '@/lib/tools'
+import { Tool } from '../lib/tools'
 
 interface ToolCardProps {
   tool: Tool

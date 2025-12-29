@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { tools } from '@/lib/tools'
-import AdSense from '@/components/AdSense'
-import ToolCard from '@/components/ToolCard'
+import { tools } from '../lib/tools'
+import AdSense from '../components/AdSense'
+import ToolCard from '../components/ToolCard'
 
 export default function Home() {
   return (

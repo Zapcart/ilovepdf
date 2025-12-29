@@ -69,7 +69,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4">Contact</h3>
             <p className="text-sm text-gray-400">
-              Have questions or feedback? We'd love to hear from you.
+              Have questions or feedback? We&apos;d love to hear from you.
             </p>
             <Link
               href="/contact"

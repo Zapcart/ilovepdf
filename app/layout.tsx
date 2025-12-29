@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import AdSense from '@/components/AdSense'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import AdSense from '../components/AdSense'
 
 export const metadata: Metadata = {
   title: 'PDFMaster Tools - Free Online PDF Tools | Merge, Split, Compress PDFs',
