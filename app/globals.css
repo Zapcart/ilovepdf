@@ -54,8 +54,17 @@ body {
 }
 
 .drop-zone.drag-over {
-  border-color: #0ea5e9;
-  background-color: #f0f9ff;
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dc2626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b91c1c;
 }
 
 /* Loading spinner */
