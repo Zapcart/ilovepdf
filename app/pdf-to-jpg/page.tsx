@@ -22,16 +22,26 @@ export default function PdfToJpgPage() {
     setMessage('Converting PDF pages to JPG images...')
 
     try {
-      const images = await convertPDFToImages(file.file, 'jpeg')
+      const formData = new FormData()
+      formData.append('file', file.file)
       
-      // Download all images
-      for (let i = 0; i < images.length; i++) {
-        const filename = file.name.replace('.pdf', `-page-${i + 1}.jpg`)
-        await downloadBlob(images[i], filename)
+      const response = await fetch('/api/pdf-to-jpg', {
+        method: 'POST',
+        body: formData,
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Conversion failed')
       }
       
+      const blob = await response.blob()
+      const filename = file.name.replace('.pdf', '.zip')
+      await downloadBlob(blob, filename)
+      
       setStatus('success')
-      setMessage(`Successfully converted PDF to ${images.length} JPG images! Downloads should start automatically.`)
+      setMessage(`Successfully converted PDF to JPG images! Your download should start automatically.`)
+      setFile(null)
     } catch (error) {
       setStatus('error')
       setMessage('Failed to convert PDF. Please ensure the file is a valid PDF document.')

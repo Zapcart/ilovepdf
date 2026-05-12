@@ -21,12 +21,26 @@ export default function WordToPdfPage() {
     setMessage('Converting Word to PDF... This may take a moment.')
 
     try {
-      const pdfBlob = await convertWordToPDF(file.file)
+      const formData = new FormData()
+      formData.append('file', file.file)
+      
+      const response = await fetch('/api/word-to-pdf', {
+        method: 'POST',
+        body: formData,
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Conversion failed')
+      }
+      
+      const blob = await response.blob()
       const filename = file.name.replace(/\.(doc|docx)$/i, '.pdf')
-      await downloadBlob(pdfBlob, filename)
+      await downloadBlob(blob, filename)
       
       setStatus('success')
       setMessage('Successfully converted Word to PDF! Your download should start automatically.')
+      setFile(null)
     } catch (error) {
       setStatus('error')
       setMessage('Failed to convert document. Please ensure the file is a valid Word document.')

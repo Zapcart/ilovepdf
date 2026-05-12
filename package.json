@@ -26,7 +26,11 @@
     "lucide-react": "^0.303.0",
     "framer-motion": "^10.16.16",
     "clsx": "^2.0.0",
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.0",
+    "jszip": "^3.10.1",
+    "sharp": "^0.33.0",
+    "qpdf": "^0.1.0",
+    "libreoffice-convert": "^1.6.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.6",

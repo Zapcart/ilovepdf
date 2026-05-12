@@ -26,24 +26,26 @@ export default function CompressPdfPage() {
     setOriginalSize(file.size)
 
     try {
-      const arrayBuffer = await readFileAsArrayBuffer(file.file)
-      const pdf = await PDFDocument.load(arrayBuffer)
-
-      // Compress by removing unnecessary metadata and optimizing
-      const pdfBytes = await pdf.save({
-        useObjectStreams: compressionLevel === 'high',
-        addDefaultPage: false,
+      const formData = new FormData()
+      formData.append('file', file.file)
+      formData.append('quality', compressionLevel)
+      
+      const response = await fetch('/api/compress-pdf', {
+        method: 'POST',
+        body: formData,
       })
-
-      const blob = new Blob([pdfBytes as BlobPart], { type: 'application/pdf' })
-      setResultSize(blob.size)
-
-      const filename = file.name.replace('.pdf', '') + '-compressed.pdf'
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Compression failed')
+      }
+      
+      const blob = await response.blob()
+      const filename = file.name.replace('.pdf', '-compressed.pdf')
       await downloadBlob(blob, filename)
-
-      const reduction = ((originalSize - blob.size) / originalSize) * 100
+      
       setStatus('success')
-      setMessage(`PDF compressed successfully! Size reduced by ${reduction.toFixed(1)}%`)
+      setMessage('PDF compressed successfully! Your download should start automatically.')
       setFile(null)
     } catch (error) {
       setStatus('error')

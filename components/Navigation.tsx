@@ -6,8 +6,6 @@ import {
   Menu, 
   X, 
   Search, 
-  User, 
-  Crown, 
   ChevronDown,
   Home,
   FileText,
@@ -154,26 +152,6 @@ export default function Navigation() {
               whileTap={{ scale: 0.95 }}
             >
               <Search className="w-5 h-5" />
-            </motion.button>
-
-            {/* Login Button */}
-            <motion.button
-              className="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <User className="w-4 h-4" />
-              <span className="text-sm font-medium">Login</span>
-            </motion.button>
-
-            {/* Premium Button */}
-            <motion.button
-              className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-accent-500 to-accent-600 text-white hover:from-accent-600 hover:to-accent-700 transition-all duration-200 shadow-lg hover:shadow-accent-500/25"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Crown className="w-4 h-4" />
-              <span className="text-sm font-medium">Premium</span>
             </motion.button>
 
             {/* Mobile Menu Button */}

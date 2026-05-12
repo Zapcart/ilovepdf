@@ -36,9 +36,23 @@ export default function ProtectPdfPage() {
     setMessage('Protecting PDF with password...')
 
     try {
-      const protectedBlob = await protectPDF(file.file, password)
+      const formData = new FormData()
+      formData.append('file', file.file)
+      formData.append('password', password)
+      
+      const response = await fetch('/api/protect-pdf', {
+        method: 'POST',
+        body: formData,
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Protection failed')
+      }
+      
+      const blob = await response.blob()
       const filename = file.name.replace('.pdf', '-protected.pdf')
-      await downloadBlob(protectedBlob, filename)
+      await downloadBlob(blob, filename)
 
       setStatus('success')
       setMessage('PDF protected successfully! Your download should start automatically.')

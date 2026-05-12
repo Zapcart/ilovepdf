@@ -21,7 +21,7 @@ export default function UnlockPdfPage() {
 
     if (!password) {
       setStatus('error')
-      setMessage('Please enter the PDF password.')
+      setMessage('Please enter PDF password.')
       return
     }
 
@@ -29,9 +29,23 @@ export default function UnlockPdfPage() {
     setMessage('Unlocking PDF...')
 
     try {
-      const unlockedBlob = await unlockPDF(file.file, password)
+      const formData = new FormData()
+      formData.append('file', file.file)
+      formData.append('password', password)
+      
+      const response = await fetch('/api/unlock-pdf', {
+        method: 'POST',
+        body: formData,
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Unlock failed')
+      }
+      
+      const blob = await response.blob()
       const filename = file.name.replace('.pdf', '-unlocked.pdf')
-      await downloadBlob(unlockedBlob, filename)
+      await downloadBlob(blob, filename)
       
       setStatus('success')
       setMessage('PDF unlocked successfully! Your download should start automatically.')
