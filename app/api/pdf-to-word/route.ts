@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
     // Return the converted file
     return new NextResponse(wordBlob, {
       headers: {
-        'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'Content-Disposition': `attachment; filename="${file.name.replace('.pdf', '.docx')}"`
+        'Content-Type': 'text/html',
+        'Content-Disposition': `attachment; filename="${file.name.replace('.pdf', '.html')}"`
       }
     })
   } catch (error) {

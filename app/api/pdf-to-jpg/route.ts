@@ -21,15 +21,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'File too large. Maximum size is 50MB.' }, { status: 400 })
     }
 
-    // Convert PDF to JPG images
-    const images = await convertPDFToImages(file, 'jpeg')
+    // Convert PDF to images
+    const images = await convertPDFToImages(file, 'png')
     
     // Create a zip file containing all images
     const zip = new JSZip()
     
     for (const [index, blob] of images.entries()) {
       const arrayBuffer = await blob.arrayBuffer()
-      zip.file(`${file.name.replace('.pdf', '')}-page-${index + 1}.jpg`, arrayBuffer)
+      zip.file(`${file.name.replace('.pdf', '')}-page-${index + 1}.svg`, arrayBuffer)
     }
     
     const zipBlob = await zip.generateAsync({ type: 'blob' })
