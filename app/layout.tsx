@@ -9,15 +9,21 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://pdfmaster-tools.vercel.app'),
-  title: 'PDFMaster Tools - Premium PDF Suite | All-in-One PDF Solution',
+  title: {
+    default: 'PDFMaster Tools - Premium PDF Suite | All-in-One PDF Solution',
+    template: '%s | PDFMaster Tools'
+  },
   description: 'Professional PDF tools platform. Convert, edit, compress, merge, split, and secure PDFs. 50+ powerful tools with modern UI.',
-  keywords: 'PDF tools, merge PDF, split PDF, compress PDF, PDF converter, edit PDF, PDF suite',
+  keywords: 'PDF tools, merge PDF, split PDF, compress PDF, PDF converter, edit PDF, PDF suite, PDF to Word, Word to PDF, PDF to JPG, JPG to PDF',
   authors: [{ name: 'PDFMaster Tools' }],
+  creator: 'PDFMaster Tools',
+  publisher: 'PDFMaster Tools',
   openGraph: {
     title: 'PDFMaster Tools - Premium PDF Suite',
     description: 'Professional PDF tools platform with 50+ powerful features. Modern UI, fast processing, secure.',
     type: 'website',
     locale: 'en_US',
+    siteName: 'PDFMaster Tools',
   },
   twitter: {
     card: 'summary_large_image',
@@ -35,6 +41,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 }
 
 export default function RootLayout({
@@ -43,8 +52,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-navy-gradient text-white antialiased">
+    <html lang="en" className="dark scroll-smooth">
+      <head>
+        <link rel="canonical" href="https://pdfmaster-tools.vercel.app" />
+      </head>
+      <body className="bg-slate-950 text-white antialiased">
         {children}
       </body>
     </html>

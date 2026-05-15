@@ -7,7 +7,7 @@ import {
   X, 
   Search, 
   ChevronDown,
-  Home,
+  Home as HomeIcon,
   FileText,
   Edit3,
   Lock,
@@ -28,7 +28,9 @@ import {
   Award,
   Globe,
   Server,
-  LockKeyhole
+  LockKeyhole,
+  Unlock,
+  Image
 } from 'lucide-react'
 
 export default function Home() {
@@ -45,7 +47,7 @@ export default function Home() {
   }, [])
 
   const navItems = [
-    { name: 'Home', icon: Home, href: '/' },
+    { name: 'Home', icon: HomeIcon, href: '/' },
     { 
       name: 'Tools', 
       icon: FileText, 
@@ -789,5 +791,3 @@ export default function Home() {
     </div>
   )
 }
-
-

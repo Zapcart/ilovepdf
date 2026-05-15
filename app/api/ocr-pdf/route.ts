@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { convertPDFToWord } from '@/lib/pdfUtils'
+import { processOCR } from '@/lib/pdfUtils'
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,20 +20,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'File too large. Maximum size is 50MB.' }, { status: 400 })
     }
 
-    // Convert PDF to Word
-    const wordBlob = await convertPDFToWord(file)
+    // Process OCR
+    const ocrResult = await processOCR(file)
     
-    // Return the converted file
-    return new NextResponse(wordBlob, {
-      headers: {
-        'Content-Type': 'application/msword',
-        'Content-Disposition': `attachment; filename="${file.name.replace('.pdf', '.doc')}"`
-      }
+    // Return OCR result
+    return NextResponse.json({
+      success: true,
+      text: ocrResult.text,
+      confidence: ocrResult.confidence,
+      pages: ocrResult.pages
     })
   } catch (error) {
-    console.error('PDF to Word conversion error:', error)
+    console.error('OCR processing error:', error)
     return NextResponse.json(
-      { error: 'Failed to convert PDF to Word. Please try again.' },
+      { error: 'Failed to process OCR. Please try again.' },
       { status: 500 }
     )
   }
